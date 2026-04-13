@@ -1,0 +1,39 @@
+
+[2026-04-13T13:14:54.846Z] PATCH /api/doctor/availability
+ReferenceError: User is not defined
+    at D:\projects\Hospital-Management-System\hospital-management\server\routes\doctor.js:79:22
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at next (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:157:13)
+    at D:\projects\Hospital-Management-System\hospital-management\server\middleware\auth.js:16:13
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at next (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:117:3)
+    at handle (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\index.js:295:15
+
+[2026-04-13T13:14:56.033Z] PATCH /api/doctor/availability
+ReferenceError: User is not defined
+    at D:\projects\Hospital-Management-System\hospital-management\server\routes\doctor.js:79:22
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at next (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:157:13)
+    at D:\projects\Hospital-Management-System\hospital-management\server\middleware\auth.js:16:13
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at next (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:117:3)
+    at handle (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\index.js:295:15
+
+[2026-04-13T13:14:56.762Z] PATCH /api/doctor/availability
+ReferenceError: User is not defined
+    at D:\projects\Hospital-Management-System\hospital-management\server\routes\doctor.js:79:22
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at next (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:157:13)
+    at D:\projects\Hospital-Management-System\hospital-management\server\middleware\auth.js:16:13
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at next (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\route.js:117:3)
+    at handle (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\lib\layer.js:152:17)
+    at D:\projects\Hospital-Management-System\hospital-management\server\node_modules\router\index.js:295:15

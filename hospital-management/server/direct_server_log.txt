@@ -1,0 +1,4 @@
+Γùç injected env (3) from .env // tip: Γîÿ suppress logs { quiet: true }
+Successfully connected to local MongoDB at mongodb://localhost:27017/hospital
+Admin user re-seeded: admin@gmail.com / password123
+Server running on port 5000
