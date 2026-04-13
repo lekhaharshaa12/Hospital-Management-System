@@ -2,23 +2,54 @@ const nodemailer = require('nodemailer');
 
 const sendEmail = async (to, subject, html) => {
     try {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
+        let transporter;
+        let isFallback = false;
+
+        // Check if cloned computer has an .env configured with real credentials
+        if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+            transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS
+                }
+            });
+        } else {
+            // Out-of-the-box fallback for fresh GitHub clones
+            console.log('\n[NOTICE] No .env email credentials found! Auto-generating a temporary test mail server...');
+            const testAccount = await nodemailer.createTestAccount();
+            transporter = nodemailer.createTransport({
+                host: "smtp.ethereal.email",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: testAccount.user,
+                    pass: testAccount.pass,
+                },
+            });
+            isFallback = true;
+        }
 
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: process.env.EMAIL_USER || '"Hospital Portal" <admin@hospital.local>',
             to,
             subject,
             html
         };
 
         const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent: ' + info.response);
+        
+        if (isFallback) {
+            console.log(`\n========================================`);
+            console.log(`✉️ EXTRACTED OTP SECRETS ✉️`);
+            const otpMatch = html.match(/<strong>(\d{6})<\/strong>/);
+            if (otpMatch) console.log(`[TESTING OTP CODE]: ${otpMatch[1]}`);
+            console.log(`[VIEW ACTUAL EMAIL IN BROWSER]: ${nodemailer.getTestMessageUrl(info)}`);
+            console.log(`========================================\n`);
+        } else {
+            console.log('Real Email sent: ' + info.response);
+        }
+        
         return true;
     } catch (error) {
         console.error('\n[EMAIL FAILED]', error.message);

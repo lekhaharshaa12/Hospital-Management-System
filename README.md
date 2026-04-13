@@ -17,8 +17,11 @@ Protects physical inventory from virtual desynchronization:
 1. **Prescription**: The Doctor prescribes medicine to the patient, deducting virtual allocations by generating a *Pending Bill*.
 2. **Dispensing**: The Receptionist physically hands over the medicine to the patient at the front desk, confirming the bill and formally deducting the items from the persistent database stock.
 
-### 🔐 Live Email Security
+### 🔐 Live Email Security & Zero-Config Setup
 Powered by `nodemailer`, all staff are completely protected by automated 2-Factor Authentication via email. Changing localized passwords requires an instantaneous 6-digit OTP delivered strictly to the employee's registered email inbox.
+
+**Developer Out-of-the-Box Setup:** You **do not** need real email credentials to test the core software locally! If you clone this repository and decline to populate your `.env` file, the system will automatically provision a free, temporary `Ethereal.email` test account in the background. Your console will print out a live URL to view your test emails instantly!
+*(For production or real email binding, follow the `.env.example` file configuration below).*
 
 ---
 
@@ -35,27 +38,27 @@ Powered by `nodemailer`, all staff are completely protected by automated 2-Facto
 
 ### Prerequisites
 1. **Node.js**: Ensure Node.js is installed on your machine.
-2. **MongoDB**: Ensure a local MongoDB instance is running on `127.0.0.1:27017` (or modify the URI).
-3. **Gmail App Password**: To utilize the secure Email OTP functionality, you **must** generate a 16-character Google App Password (standard passwords will be rejected by Google).
+2. **MongoDB Database**: The system strictly depends on MongoDB. 
+   - Download and install MongoDB Community Edition from the [Official MongoDB Website](https://www.mongodb.com/try/download/community).
+   - Ensure the MongoDB background service is actively running on your machine (default port `27017`) before starting the server.
+3. **Database Compass (Optional)**: We heavily recommend installing MongoDB Compass for a visual UI of your database collections.
 
 ### 1. Server Setup (Backend)
 Navigate to the server directory:
 ```bash
-cd server
+cd hospital-management/server
 npm install
 ```
 
-Create a `.env` file in the `/server` directory and add the following variables:
-```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/hospital
-JWT_SECRET=your_secure_random_string_here
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_16_character_app_password
+To configure your own secure environment, securely rename the included `.env.example` file to `.env`:
+```bash
+cp .env.example .env
 ```
+*(Optionally define your Gmail App Password if you want to bypass the automatic Ethereal fallback).*
 
 Start the backend:
 ```bash
+
 npm start
 ```
 *Note: The server will automatically connect to MongoDB and seed a default Admin user (`admin@gmail.com` / `password123`).*
@@ -63,7 +66,7 @@ npm start
 ### 2. Client Setup (Frontend)
 Open a new terminal and navigate to the client directory:
 ```bash
-cd client
+cd hospital-management/client
 npm install
 ```
 
