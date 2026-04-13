@@ -1,180 +1,85 @@
-# 🏥 Hospital Management System – Web Based
+# 🏥 Modern Hospital Management System
 
-A simple and user-friendly **Hospital Management System** built using PHP, MySQL, HTML, and CSS.  
-This project allows hospitals or clinics to manage patients, doctors, and appointments efficiently.
-
----
-
-## 📌 Project Overview
-
-The Hospital Management System is a web application that helps to manage:
-
-- Patient records  
-- Doctor details  
-- Appointment bookings  
-- Viewing stored information  
-
-It is a basic CRUD-based project suitable for beginners and academic purposes.
+A robust, full-stack Hospital Management System designed to handle real-world clinical workflows. Built with modern web technologies, this platform features strict Role-Based Access Control, a seamless two-step pharmacy dispensary integration, and secure live-email verification flows for staff credentials.
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
-### ✔ Patient Module
-- Add new patients  
-- View list of all patients  
+### 🪪 Role-Based Access Control (RBAC)
+Dedicated views and secured endpoints for three specialized roles:
+- **Admin**: Has overarching control to manage all staff members (Adding Doctors & Receptionists), view global metrics, and override system settings.
+- **Receptionist**: The backbone of the front desk. Handles patient registration, schedules appointments using the "Fast-Follow" booking flow, tracks global medicine inventory, and finalizes medicine dispensing.
+- **Doctor**: Manages their own availability status, tracks incoming patient appointments, reviews patient medical histories, and generates pending prescriptions directly linked to the hospital inventory.
 
-### ✔ Doctor Module
-- Add new doctors  
-- View doctor details  
+### 💊 Two-Step Dispensary Workflow
+Protects physical inventory from virtual desynchronization:
+1. **Prescription**: The Doctor prescribes medicine to the patient, deducting virtual allocations by generating a *Pending Bill*.
+2. **Dispensing**: The Receptionist physically hands over the medicine to the patient at the front desk, confirming the bill and formally deducting the items from the persistent database stock.
 
-### ✔ Appointment Module
-- Book appointments  
-- View all appointments  
-
-### ✔ Simple and Clean UI
-- Easy navigation  
-- Beginner-friendly interface  
+### 🔐 Live Email Security
+Powered by `nodemailer`, all staff are completely protected by automated 2-Factor Authentication via email. Changing localized passwords requires an instantaneous 6-digit OTP delivered strictly to the employee's registered email inbox.
 
 ---
 
-## 🛠 Technologies Used
+## 🛠️ Technology Stack
 
-- **Frontend:** HTML, CSS  
-- **Backend:** PHP  
-- **Database:** MySQL  
-- **Server:** XAMPP (Apache & MySQL)
-
----
-
-## 📁 Project Structure
-hospital-management/
-│── index.html
-│── style.css
-│── db.php
-│── add_patient.php
-│── view_patients.php
-│── add_doctor.php
-│── view_doctors.php
-│── add_appointment.php
-│── view_appointments.php
-│── database.sql
-│── README.md
-
+- **Frontend**: React.js, Vite, Tailwind/Custom CSS Glassmorphism, Framer Motion (Animations), Lucide React (Icons)
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB & Mongoose ORM
+- **Security**: JWT (JSON Web Tokens), Nodemailer (SMTP Email Service)
 
 ---
 
-## 🗄 Database Details
+## 🚀 Installation & Setup Guide
 
-Database Name: **hospital**
+### Prerequisites
+1. **Node.js**: Ensure Node.js is installed on your machine.
+2. **MongoDB**: Ensure a local MongoDB instance is running on `127.0.0.1:27017` (or modify the URI).
+3. **Gmail App Password**: To utilize the secure Email OTP functionality, you **must** generate a 16-character Google App Password (standard passwords will be rejected by Google).
 
-Tables used:
+### 1. Server Setup (Backend)
+Navigate to the server directory:
+```bash
+cd server
+npm install
+```
 
-1. **patients**
-   - id  
-   - name  
-   - age  
-   - gender  
+Create a `.env` file in the `/server` directory and add the following variables:
+```env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/hospital
+JWT_SECRET=your_secure_random_string_here
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_16_character_app_password
+```
 
-2. **doctors**
-   - id  
-   - name  
-   - specialization  
+Start the backend:
+```bash
+npm start
+```
+*Note: The server will automatically connect to MongoDB and seed a default Admin user (`admin@gmail.com` / `password123`).*
 
-3. **appointments**
-   - id  
-   - patient_name  
-   - doctor_name  
-   - date  
+### 2. Client Setup (Frontend)
+Open a new terminal and navigate to the client directory:
+```bash
+cd client
+npm install
+```
 
-All table creation queries are available in:
+Start the Vite development server:
+```bash
+npm run dev -- --port 5174
+```
 
-database.sql
-
-
----
-
-## 🚀 How to Run This Project Locally
-
-Follow these steps carefully:
-
-### Step 1 – Install XAMPP
-
-Download XAMPP from:
-
-https://www.apachefriends.org/
-
-Install it on your system.
-
----
-
-### Step 2 – Start Server
-
-Open XAMPP Control Panel and start:
-
-- Apache  
-- MySQL  
+Navigate to `http://localhost:5174` in your browser.
 
 ---
 
-### Step 3 – Place Project in htdocs
+## 📖 Walkthrough / Usage Guide
 
-Copy the project folder into:
-
-C:\xampp\htdocs\
-
-
-Final path should be:
-
-C:\xampp\htdocs\hospital-management
-
-
-
----
-
-### Step 4 – Create Database
-
-1. Open browser and go to:
-
-
-http://localhost/phpmyadmin
-
-2. Click on **New Database**
-
-3. Create a database named:
-
-hospital
-
-
-4. Import the file:
-
-database.sql
-
-
----
-
-### Step 5 – Configure Database Connection
-
-Open the file:
-
-db.php
-
-
-Make sure it contains:
-
-```php
-<?php
-$conn = mysqli_connect("localhost", "root", "", "hospital");
-
-if(!$conn){
-    die("Connection Failed");
-}
-?>
-Step 6 – Run the Project
-
-Open browser and go to:
-
-http://localhost/hospital-management
-
-
-Now the project will run successfully.
+1. **Initial Login**: Sign in using the default Admin schema (`admin@gmail.com` / `password123`).
+2. **Hire Staff**: Navigate to the "Add Staff" tab to register your first Doctor and Receptionist.
+3. **Desk Operations**: Log out and log in as the Receptionist. Register a mock patient, then immediately schedule them to an appointment with your new Doctor using the pop-up modal.
+4. **Clinical Diagnosis**: Log in as the Doctor, view the patient's queue, and prescribe them a medicine. 
+5. **Dispensing**: Log back in as the Receptionist, navigate to "Dispensary & Bills," and securely finalize the pending invoice to deduct your stock. 
